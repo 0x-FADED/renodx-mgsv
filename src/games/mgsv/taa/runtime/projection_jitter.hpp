@@ -872,7 +872,7 @@ inline bool InitializeNativeDiagnosticAddresses(HMODULE module) {
   auto* base = reinterpret_cast<uint8_t*>(module);
   const auto* dos = reinterpret_cast<const IMAGE_DOS_HEADER*>(base);
   const auto* nt = reinterpret_cast<const IMAGE_NT_HEADERS*>(base + dos->e_lfanew);
-  if (nt->OptionalHeader.SizeOfImage != 0xA01D000u) return false;
+  if (nt->OptionalHeader.SizeOfInitializedData != 0x019E200u) return false;
   // All checked RVAs (including the four-entry table) are below SizeOfImage.
   // Exact prologues include RIP displacements: other EXE builds fail closed.
   if (!MatchesBytes(base + 0x30AC50u, std::array<uint8_t, 16>{
